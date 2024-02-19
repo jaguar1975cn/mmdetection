@@ -22,7 +22,7 @@ class MaskedDataPreprocessor(DetDataPreprocessor):
                  rgb_to_bgr: bool = False,
                  boxtype2tensor: bool = True,
                  mask_polygon: List[Tuple[int, int]] = None,
-                 masked_images_annotation_file: str = None, # annotation file
+                 masked_images_annotation_files: List[str] = None, # annotation files
                  non_blocking: Optional[bool] = False,
                  batch_augments: Optional[List[dict]] = None):
         super().__init__(
@@ -43,13 +43,14 @@ class MaskedDataPreprocessor(DetDataPreprocessor):
         # create a closed polygon
         self.mask_polygon = mask_polygon + [mask_polygon[0]]
         self.mask = None
-        self.masked_images_annotation_file = masked_images_annotation_file
+        self.masked_images_annotation_files = masked_images_annotation_files
         self.masked_images = set()
 
-        with open(masked_images_annotation_file, 'r') as f:
-            data = json.load(f)
-            for img in data['images']:
-                self.masked_images.add(img['file_name'])
+        for masked_images_annotation_file in self.masked_images_annotation_files:
+            with open(masked_images_annotation_file, 'r') as f:
+                data = json.load(f)
+                for img in data['images']:
+                    self.masked_images.add(img['file_name'])
 
     def forward(self, data: dict, training: bool = False) -> dict:
         # print("shape of data", data['inputs'][0].shape)

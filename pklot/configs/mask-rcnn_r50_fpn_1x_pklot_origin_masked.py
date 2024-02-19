@@ -27,7 +27,11 @@ model = dict(
             57.375,
         ],
         mask_polygon=[ [274,180], [1070,165], [1190, 490], [740, 495], [725, 604], [9, 590], [21,477], [86,480] ],
-        masked_images_annotation_file = 'datasets/pklot/images/PUCPR/train/an.json',
+        masked_images_annotation_files = [
+            'datasets/pklot/images/PUCPR/train/an.json',
+            'datasets/pklot/images/PUCPR/valid/an.json',
+            'datasets/pklot/images/PUCPR/test/an.json'
+        ],
         type='MaskedDataPreprocessor')
     )
 
@@ -50,6 +54,34 @@ train_pipeline = [
     dict(type='PackDetInputs'),
 ]
 
+valid_pipeline = [
+    dict(backend_args=None, type='LoadImageFromFile'),
+    dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
+    dict(
+        meta_keys=(
+            'img_id',
+            'img_path',
+            'ori_shape',
+            'img_shape',
+            'scale_factor',
+        ),
+        type='PackDetInputs'),
+]
+
+test_pipeline = [
+    dict(backend_args=None, type='LoadImageFromFile'),
+    dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
+    dict(
+        meta_keys=(
+            'img_id',
+            'img_path',
+            'ori_shape',
+            'img_shape',
+            'scale_factor',
+        ),
+        type='PackDetInputs')
+]
+
 annotation_file = '_annotations.coco-seg.json'
 train_dataloader = dict(
     batch_size=1,
@@ -66,13 +98,20 @@ val_dataloader = dict(
         data_root=data_root,
         metainfo=metainfo,
         ann_file='valid/' + annotation_file,
-        data_prefix=dict(img='valid/')))
+        data_prefix=dict(img='valid/'),
+        pipeline=valid_pipeline
+    )
+)
+
 test_dataloader = dict(
     dataset=dict(
         data_root=data_root,
         metainfo=metainfo,
         ann_file='test/' + annotation_file,
-        data_prefix=dict(img='test/')))
+        data_prefix=dict(img='test/'),
+        pipeline=test_pipeline
+    )
+)
 
 # Modify metric related settings
 val_evaluator = dict(ann_file=data_root + 'valid/' + annotation_file, metric=['bbox'])
