@@ -49,6 +49,10 @@ metainfo = {
 
 train_pipeline = [
     dict(backend_args=None, type='LoadImageFromFile'),
+    dict(keep_ratio=True, scale=(
+        1280,
+        720,
+    ), type='Resize'),
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
     dict(prob=0.5, type='RandomFlip'),
     dict(type='PackDetInputs'),
@@ -56,6 +60,10 @@ train_pipeline = [
 
 valid_pipeline = [
     dict(backend_args=None, type='LoadImageFromFile'),
+    dict(keep_ratio=True, scale=(
+        1280,
+        720,
+    ), type='Resize'),
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
     dict(
         meta_keys=(
@@ -70,6 +78,10 @@ valid_pipeline = [
 
 test_pipeline = [
     dict(backend_args=None, type='LoadImageFromFile'),
+    dict(keep_ratio=True, scale=(
+        1280,
+        720,
+    ), type='Resize'),
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
     dict(
         meta_keys=(
