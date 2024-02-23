@@ -1,5 +1,11 @@
 _base_ = '../../configs/dino/dino-4scale_r50_8xb2-12e_coco.py'
 
+max_epochs = 300
+train_cfg = dict(max_epochs=max_epochs, type='EpochBasedTrainLoop', val_interval=1)
+
+model = dict(
+    bbox_head=dict(num_classes=3))
+
 data_root = './datasets/pklot/images/'
 metainfo = {
     'classes': ('spaces', 'space-empty', 'space-occupied'),
@@ -9,6 +15,7 @@ metainfo = {
         (220, 20, 60),
     ]
 }
+#annotation_file = 'mini.json'
 annotation_file = '_annotations.coco-seg.json'
 train_dataloader = dict(
     batch_size=1,
