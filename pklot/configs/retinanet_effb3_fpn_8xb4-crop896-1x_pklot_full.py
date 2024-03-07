@@ -3,7 +3,6 @@ _base_ = '../../configs/efficientnet/retinanet_effb3_fpn_8xb4-crop896-1x_coco.py
 max_epochs = 40
 train_cfg = dict(max_epochs=max_epochs, type='EpochBasedTrainLoop', val_interval=1)
 
-
 model = dict(
     bbox_head=dict(num_classes=3))
 
@@ -16,7 +15,7 @@ metainfo = {
         (220, 20, 60),
     ]
 }
-annotation_file = '_annotations.coco-seg.json'
+annotation_file = 'full3.json'
 train_dataloader = dict(
     batch_size=2,
     dataset=dict(
