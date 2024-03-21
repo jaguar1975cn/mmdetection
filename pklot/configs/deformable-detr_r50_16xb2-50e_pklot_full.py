@@ -5,7 +5,7 @@ auto_scale_lr = dict(base_batch_size=8)
 max_epochs = 40
 train_cfg = dict(max_epochs=max_epochs, type='EpochBasedTrainLoop', val_interval=1)
 default_hooks = dict(
-    checkpoint=dict(interval=5, type='CheckpointHook'))
+    checkpoint=dict(interval=1, type='CheckpointHook'))
 
 model = dict(
     bbox_head=dict(num_classes=3))
