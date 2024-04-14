@@ -51,9 +51,9 @@ test_dataloader = dict(
     dataset=dict(
         data_root=data_root,
         metainfo=metainfo,
-        ann_file='test/' + annotation_file,
+        ann_file='test/full3.json',# + annotation_file,
         data_prefix=dict(img='test/')))
 
 # Modify metric related settings
 val_evaluator = dict(ann_file=data_root + 'valid/' + annotation_file, metric=['bbox'])
-test_evaluator = dict(ann_file=data_root + 'test/' + annotation_file, metric=['bbox'])
+test_evaluator = dict(ann_file=data_root + 'test/full3.json', metric=['bbox'])
