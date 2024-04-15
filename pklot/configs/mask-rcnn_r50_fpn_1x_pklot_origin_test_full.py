@@ -25,28 +25,29 @@ metainfo = {
         (220, 20, 60),
     ]
 }
+annotation_file = '_annotations.coco-seg.json'
 train_dataloader = dict(
     batch_size=1,
     dataset=dict(
         data_root=data_root,
         metainfo=metainfo,
-        ann_file='train/full3.json',
+        ann_file='train/' + annotation_file,
         data_prefix=dict(img='train/')))
 val_dataloader = dict(
     dataset=dict(
         data_root=data_root,
         metainfo=metainfo,
-        ann_file='valid/full3.json',
+        ann_file='valid/' + annotation_file,
         data_prefix=dict(img='valid/')))
 test_dataloader = dict(
     dataset=dict(
         data_root=data_root,
         metainfo=metainfo,
-        ann_file='test/full3.json',
+        ann_file='test/full3.json',# + annotation_file,
         data_prefix=dict(img='test/')))
 
 # Modify metric related settings
-val_evaluator = dict(ann_file=data_root + 'valid/full3.json', metric=['bbox'])
+val_evaluator = dict(ann_file=data_root + 'valid/' + annotation_file, metric=['bbox'])
 test_evaluator = dict(ann_file=data_root + 'test/full3.json', metric=['bbox'])
 
 # We can use the pre-trained Mask RCNN model to obtain higher performance
