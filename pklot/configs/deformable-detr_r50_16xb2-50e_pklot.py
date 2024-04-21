@@ -8,7 +8,9 @@ default_hooks = dict(
     checkpoint=dict(interval=5, type='CheckpointHook'))
 
 model = dict(
-    bbox_head=dict(num_classes=3))
+    bbox_head=dict(num_classes=3),
+    test_cfg=dict(max_per_img=300)
+    )
 
 data_root = './datasets/pklot/images/'
 metainfo = {

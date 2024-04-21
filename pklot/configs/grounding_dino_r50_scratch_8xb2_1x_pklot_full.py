@@ -4,7 +4,7 @@ _base_ = '../../configs/grounding_dino/grounding_dino_r50_scratch_8xb2_1x_coco.p
 max_epochs = 40
 train_cfg = dict(max_epochs=max_epochs, type='EpochBasedTrainLoop', val_interval=1)
 default_hooks = dict(
-    checkpoint=dict(interval=5, type='CheckpointHook'))
+    checkpoint=dict(interval=1, type='CheckpointHook'))
 
 model = dict(
     bbox_head=dict(num_classes=3))
@@ -41,5 +41,5 @@ test_dataloader = dict(
         data_prefix=dict(img='test/')))
 
 # Modify metric related settings
-val_evaluator = dict(ann_file=data_root + 'valid/' + annotation_file, metric=['bbox'])
+val_evaluator = dict(ann_file=data_root + 'valid/full3-1024.json', metric=['bbox'])
 test_evaluator = dict(ann_file=data_root + 'test/' + annotation_file, metric=['bbox'])

@@ -11,6 +11,9 @@ model = dict(
     test_cfg=dict(
         rcnn=dict(
             max_per_img=1000
+        ),
+        rpn=dict(
+            max_per_img=1000
         )
     )
 )

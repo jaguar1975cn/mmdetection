@@ -8,7 +8,9 @@ max_epochs = 40
 train_cfg = dict(max_epochs=max_epochs)
 
 model = dict(
-    bbox_head=dict(num_classes=3, type="MySSDHead"))
+    bbox_head=dict(num_classes=3, type="MySSDHead"),
+    test_cfg=dict(max_per_img=300)
+    )
 
 data_root = './datasets/pklot/images/'
 metainfo = {
