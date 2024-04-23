@@ -121,3 +121,8 @@ work_dirs/
 *.pth
 *.py~
 *.sh~
+
+screenlog*
+work_dirs
+outputs
+datasets
