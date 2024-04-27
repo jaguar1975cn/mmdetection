@@ -28,19 +28,19 @@ train_dataloader = dict(
         data_root=data_root,
         metainfo=metainfo,
         ann_file='cnr-train.json',
-        data_prefix=dict(img='train/')))
+        data_prefix=dict(img='')))
 val_dataloader = dict(
     dataset=dict(
         data_root=data_root,
         metainfo=metainfo,
         ann_file='cnr-validation.json',
-        data_prefix=dict(img='valid/')))
+        data_prefix=dict(img='')))
 test_dataloader = dict(
     dataset=dict(
         data_root=data_root,
         metainfo=metainfo,
         ann_file='cnr-test.json',
-        data_prefix=dict(img='test/')))
+        data_prefix=dict(img='')))
 
 # Modify metric related settings
 val_evaluator = dict(ann_file=data_root + 'cnr-validation.json/', metric=['bbox'])
