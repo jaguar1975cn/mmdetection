@@ -2,7 +2,7 @@ _base_ = '../../configs/deformable_detr/deformable-detr_r50_16xb2-50e_coco.py'
 
 auto_scale_lr = dict(base_batch_size=8)
 
-max_epochs = 40
+max_epochs = 290
 train_cfg = dict(max_epochs=max_epochs, type='EpochBasedTrainLoop', val_interval=1)
 default_hooks = dict(
     checkpoint=dict(interval=1, type='CheckpointHook'))
@@ -43,5 +43,5 @@ test_dataloader = dict(
         data_prefix=dict(img='')))
 
 # Modify metric related settings
-val_evaluator = dict(ann_file=data_root + 'cnr-validation.json/', metric=['bbox'])
+val_evaluator = dict(ann_file=data_root + 'cnr-validation.json', metric=['bbox'])
 test_evaluator = dict(ann_file=data_root + 'cnr-test.json', metric=['bbox'])
