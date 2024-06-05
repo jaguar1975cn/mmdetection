@@ -1,28 +1,13 @@
-_base_ = '../../configs/swin/mask-rcnn_swin-t-p4-w7_fpn_amp-ms-crop-3x_coco.py'
+_base_ = '../../configs/grounding_dino/grounding_dino_swin-t_finetune_16xb2_1x_coco.py'
+#auto_scale_lr = dict(base_batch_size=8)
 
-
-auto_scale_lr = dict(base_batch_size=8)
-
-max_epochs = 40
+max_epochs = 220
 train_cfg = dict(max_epochs=max_epochs, type='EpochBasedTrainLoop', val_interval=1)
 default_hooks = dict(
     checkpoint=dict(interval=1, type='CheckpointHook'))
 
 model = dict(
-    roi_head=dict(
-        bbox_head=dict(
-            num_classes=3
-        ),
-        mask_head=dict(
-            num_classes=3
-        )
-    ),
-    test_cfg=dict(
-        rcnn=dict(
-            max_per_img=1000
-        )
-    )
-)
+    bbox_head=dict(num_classes=3))
 
 data_root = './datasets/pklot/new-split/'
 metainfo = {
