@@ -1,6 +1,4 @@
-_base_ = '../../configs/swin/mask-rcnn_swin-t-p4-w7_fpn_amp-ms-crop-3x_coco.py'
-
-
+_base_ = '../../configs/dino/dino-4scale_r50_8xb2-12e_coco.py'
 auto_scale_lr = dict(base_batch_size=8)
 
 max_epochs = 40
@@ -9,22 +7,9 @@ default_hooks = dict(
     checkpoint=dict(interval=1, type='CheckpointHook'))
 
 model = dict(
-    roi_head=dict(
-        bbox_head=dict(
-            num_classes=3
-        ),
-        mask_head=dict(
-            num_classes=3
-        )
-    ),
-    test_cfg=dict(
-        rcnn=dict(
-            max_per_img=1000
-        )
-    )
-)
+    bbox_head=dict(num_classes=3))
 
-data_root = './datasets/pklot/new-split/'
+data_root = './datasets/pklot/pklot_full_new_split/'
 metainfo = {
     'classes': ('spaces', 'space-empty', 'space-occupied'),
     'palette': [
@@ -33,7 +18,7 @@ metainfo = {
         (220, 20, 60),
     ]
 }
-annotation_file = 'pklot-annotations.json'
+annotation_file = 'pklot_ext_annotations.json'
 train_dataloader = dict(
     batch_size=1,
     dataset=dict(
