@@ -35,7 +35,7 @@ def collect_image_infos(path, exclude_extensions=None):
     for image_path in track_iter_progress(list(images_generator)):
         if exclude_extensions is None or (
                 exclude_extensions is not None
-                and not image_path.lower().endswith(exclude_extensions)):
+                and not image_path.lower().endswith(tuple(exclude_extensions))):
             image_path = os.path.join(path, image_path)
             img_pillow = Image.open(image_path)
             img_info = {
