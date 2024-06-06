@@ -3,7 +3,7 @@ _base_ = '../../configs/swin/mask-rcnn_swin-t-p4-w7_fpn_amp-ms-crop-3x_coco.py'
 
 auto_scale_lr = dict(base_batch_size=8)
 
-max_epochs = 40
+max_epochs = 20
 train_cfg = dict(max_epochs=max_epochs, type='EpochBasedTrainLoop', val_interval=1)
 default_hooks = dict(
     checkpoint=dict(interval=1, type='CheckpointHook'))
@@ -55,5 +55,5 @@ test_dataloader = dict(
         data_prefix=dict(img='test/')))
 
 # Modify metric related settings
-val_evaluator = dict(ann_file=data_root + 'valid/' + annotation_file, metric=['bbox'])
-test_evaluator = dict(ann_file=data_root + 'test/' + annotation_file, metric=['bbox'])
+val_evaluator = dict(ann_file=data_root + 'valid/' + annotation_file, metric=['bbox'], proposal_nums=[1000, 1000, 1000], use_mp_eval=True)
+test_evaluator = dict(ann_file=data_root + 'test/' + annotation_file, metric=['bbox'], proposal_nums=[1000, 1000, 1000], use_mp_eval=True)
