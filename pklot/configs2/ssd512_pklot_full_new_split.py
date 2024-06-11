@@ -4,7 +4,7 @@ custom_imports = dict(
     imports=['pklot'],
     allow_failed_imports=False)
 
-max_epochs = 20
+max_epochs = 41 
 train_cfg = dict(max_epochs=max_epochs)
 
 model = dict(

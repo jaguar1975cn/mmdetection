@@ -1,7 +1,7 @@
 _base_ = '../../configs/dino/dino-4scale_r50_8xb2-12e_coco.py'
 auto_scale_lr = dict(base_batch_size=8)
 
-max_epochs = 20
+max_epochs = 22
 train_cfg = dict(max_epochs=max_epochs, type='EpochBasedTrainLoop', val_interval=1)
 default_hooks = dict(
     checkpoint=dict(interval=1, type='CheckpointHook'))

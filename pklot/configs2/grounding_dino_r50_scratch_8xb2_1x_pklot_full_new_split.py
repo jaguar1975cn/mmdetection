@@ -40,5 +40,5 @@ test_dataloader = dict(
         data_prefix=dict(img='test/')))
 
 # Modify metric related settings
-val_evaluator = dict(ann_file=data_root + 'valid/' + annotation_file, metric=['bbox'])
-test_evaluator = dict(ann_file=data_root + 'test/' + annotation_file, metric=['bbox'])
+val_evaluator = dict(ann_file=data_root + 'valid/' + annotation_file, metric=['bbox'], proposal_nums=[1000, 1000, 1000], use_mp_eval=True)
+test_evaluator = dict(ann_file=data_root + 'test/' + annotation_file, metric=['bbox'], proposal_nums=[1000, 1000, 1000], use_mp_eval=True)
