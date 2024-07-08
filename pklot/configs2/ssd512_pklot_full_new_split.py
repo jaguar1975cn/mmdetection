@@ -4,7 +4,7 @@ custom_imports = dict(
     imports=['pklot'],
     allow_failed_imports=False)
 
-max_epochs = 41 
+max_epochs = 20
 train_cfg = dict(max_epochs=max_epochs)
 
 model = dict(
@@ -40,7 +40,7 @@ val_dataloader = dict(
         type={{_base_.dataset_type}},
         metainfo=metainfo,
         data_root=data_root,
-        ann_file='valid/' + annotation_file,
+        ann_file='valid/pklot_ext_annotations-1024.json',
         data_prefix=dict(img='valid/'),
         pipeline=_base_.test_pipeline
     )

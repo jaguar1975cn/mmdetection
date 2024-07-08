@@ -9,7 +9,7 @@ default_hooks = dict(
 model = dict(
     bbox_head=dict(num_classes=3))
 
-data_root = './datasets/cnr/scaled'
+data_root = './datasets/cnr/scaled/test/'
 metainfo = {
     'classes': ('spaces', 'space-empty', 'space-occupied'),
     'palette': [
