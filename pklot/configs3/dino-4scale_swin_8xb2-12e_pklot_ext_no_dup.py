@@ -1,19 +1,39 @@
-_base_ = '../../configs/detr/detr_r50_8xb2-150e_coco.py'
+_base_ = '../../configs/dino/dino-4scale_r50_8xb2-12e_coco.py'
 auto_scale_lr = dict(base_batch_size=8)
 
-max_epochs = 120
+max_epochs = 20
 train_cfg = dict(max_epochs=max_epochs, type='EpochBasedTrainLoop', val_interval=1)
 default_hooks = dict(
     checkpoint=dict(interval=1, type='CheckpointHook'))
 
+pretrained = 'https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_tiny_patch4_window7_224.pth'  # noqa
+
 model = dict(
     bbox_head=dict(num_classes=3),
     num_queries=300,
-    test_cfg=dict(max_per_img=300)
+    test_cfg=dict(max_per_img=300),
+    backbone=dict(
+        _delete_=True,
+        type='SwinTransformer',
+        embed_dims=96,
+        depths=[2, 2, 6, 2],
+        num_heads=[3, 6, 12, 24],
+        window_size=7,
+        mlp_ratio=4,
+        qkv_bias=True,
+        qk_scale=None,
+        drop_rate=0.,
+        attn_drop_rate=0.,
+        drop_path_rate=0.2,
+        patch_norm=True,
+        out_indices=(0, 1, 2, 3),
+        with_cp=False,
+        convert_weights=True,
+        init_cfg=dict(type='Pretrained', checkpoint=pretrained)),
+    neck=dict(in_channels=[96, 192, 384, 768])
 )
 
-
-data_root = './datasets/cnr/scaled/images/'
+data_root = './datasets/pklot-ext/images/'
 metainfo = {
     'classes': ('spaces', 'space-empty', 'space-occupied'),
     'palette': [
@@ -22,7 +42,7 @@ metainfo = {
         (220, 20, 60),
     ]
 }
-annotation_file = 'cnr.json'
+annotation_file = 'pklot_ext_without_dup.json'
 train_dataloader = dict(
     batch_size=1,
     dataset=dict(

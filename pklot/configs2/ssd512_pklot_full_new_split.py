@@ -4,7 +4,7 @@ custom_imports = dict(
     imports=['pklot'],
     allow_failed_imports=False)
 
-max_epochs = 20
+max_epochs = 40
 train_cfg = dict(max_epochs=max_epochs)
 
 model = dict(
@@ -108,5 +108,5 @@ test_dataloader = dict(
 # )
 
 # Modify metric related settings
-val_evaluator = dict(ann_file=data_root + 'valid/' + annotation_file, metric=['bbox'], proposal_nums=[1000, 1000, 1000], use_mp_eval=True)
+val_evaluator = dict(ann_file=data_root + 'valid/pklot_ext_annotations-1024.json', metric=['bbox'], proposal_nums=[1000, 1000, 1000], use_mp_eval=True)
 test_evaluator = dict(ann_file=data_root + 'test/' + annotation_file, metric=['bbox'], proposal_nums=[1000, 1000, 1000], use_mp_eval=True)
